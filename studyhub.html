@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Study Hub - Academic Resource Center</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+			}
+
+			:root {
+				--primary: #4361ee;
+				--secondary: #3a0ca3;
+				--accent: #4cc9f0;
+				--light: #f8f9fa;
+				--dark: #212529;
+				--success: #2ecc71;
+				--warning: #f39c12;
+				--danger: #e74c3c;
+				--gray: #6c757d;
+				--light-gray: #e9ecef;
+				--border-radius: 12px;
+				--shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+				--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			body {
+				background: linear-gradient(135deg, #f5f7fa 0%, #e3edf7 100%);
+				color: var(--dark);
+				line-height: 1.6;
+				min-height: 100vh;
+				padding-bottom: 50px;
+			}
+
+			.container {
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+
+			/* Header */
+			header {
+				background: white;
+				box-shadow: var(--shadow);
+				position: sticky;
+				top: 0;
+				z-index: 100;
+				padding: 15px 0;
+			}
+
+			.header-content {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.logo {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				text-decoration: none;
+				color: var(--primary);
+				font-weight: 700;
+				font-size: 1.5rem;
+			}
+
+			.logo i {
+				font-size: 1.8rem;
+				background: linear-gradient(45deg, var(--primary), var(--accent));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.logo-text span {
+				color: var(--secondary);
+			}
+
+			.nav-links {
+				display: flex;
+				gap: 30px;
+				list-style: none;
+			}
+
+			.nav-links a {
+				text-decoration: none;
+				color: var(--dark);
+				font-weight: 500;
+				padding: 8px 0;
+				position: relative;
+				transition: var(--transition);
+			}
+
+			.nav-links a:hover {
+				color: var(--primary);
+			}
+
+			.nav-links a::after {
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 0;
+				height: 2px;
+				background: var(--primary);
+				transition: var(--transition);
+			}
+
+			.nav-links a:hover::after {
+				width: 100%;
+			}
+
+			.user-profile {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				background: var(--light-gray);
+				padding: 8px 15px;
+				border-radius: 50px;
+				cursor: pointer;
+			}
+
+			.profile-img {
+				width: 35px;
+				height: 35px;
+				border-radius: 50%;
+				background: linear-gradient(45deg, var(--primary), var(--accent));
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-weight: 600;
+			}
+
+			/* Hero Section */
+			.hero {
+				text-align: center;
+				padding: 60px 0 40px;
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			.hero h1 {
+				font-size: 3.2rem;
+				background: linear-gradient(45deg, var(--primary), var(--secondary));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				margin-bottom: 15px;
+				line-height: 1.2;
+			}
+
+			.hero-subtitle {
+				font-size: 1.2rem;
+				color: var(--gray);
+				margin-bottom: 30px;
+				max-width: 600px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			.stats {
+				display: flex;
+				justify-content: center;
+				gap: 40px;
+				margin: 30px 0;
+			}
+
+			.stat-item {
+				text-align: center;
+			}
+
+			.stat-number {
+				font-size: 2.2rem;
+				font-weight: 700;
+				color: var(--primary);
+				margin-bottom: 5px;
+			}
+
+			.stat-label {
+				color: var(--gray);
+				font-size: 0.9rem;
+			}
+
+			/* Study Resources Section */
+			.section-title {
+				text-align: center;
+				font-size: 2.2rem;
+				color: var(--dark);
+				margin: 40px 0 30px;
+				position: relative;
+			}
+
+			.section-title::after {
+				content: "";
+				position: absolute;
+				bottom: -10px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 60px;
+				height: 3px;
+				background: var(--primary);
+				border-radius: 2px;
+			}
+
+			.resources-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+				gap: 25px;
+				margin-top: 30px;
+			}
+
+			.resource-card {
+				background: white;
+				border-radius: var(--border-radius);
+				padding: 25px;
+				box-shadow: var(--shadow);
+				transition: var(--transition);
+				border: 1px solid transparent;
+			}
+
+			.resource-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+				border-color: var(--light-gray);
+			}
+
+			.resource-header {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				margin-bottom: 15px;
+			}
+
+			.resource-icon {
+				width: 50px;
+				height: 50px;
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.5rem;
+				color: white;
+			}
+
+			.icon-khan {
+				background: linear-gradient(45deg, #14a800, #0d8b00);
+			}
+
+			.icon-coursera {
+				background: linear-gradient(45deg, #0056d2, #003da0);
+			}
+
+			.icon-edx {
+				background: linear-gradient(45deg, #022b5a, #001933);
+			}
+
+			.resource-title {
+				font-size: 1.4rem;
+				color: var(--dark);
+				margin: 0;
+			}
+
+			.resource-description {
+				color: var(--gray);
+				margin-bottom: 20px;
+				font-size: 0.95rem;
+			}
+
+			.resource-features {
+				list-style: none;
+				margin-bottom: 20px;
+			}
+
+			.resource-features li {
+				margin-bottom: 8px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.resource-features li i {
+				color: var(--success);
+				font-size: 0.9rem;
+			}
+
+			.resource-link {
+				display: inline-block;
+				padding: 10px 25px;
+				background: var(--primary);
+				color: white;
+				text-decoration: none;
+				border-radius: 8px;
+				font-weight: 500;
+				transition: var(--transition);
+				text-align: center;
+			}
+
+			.resource-link:hover {
+				background: var(--secondary);
+				transform: translateY(-2px);
+				box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+			}
+
+			/* Progress Section */
+			.progress-section {
+				margin: 50px 0;
+			}
+
+			.progress-card {
+				background: white;
+				border-radius: var(--border-radius);
+				padding: 30px;
+				box-shadow: var(--shadow);
+			}
+
+			.progress-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 25px;
+			}
+
+			.progress-title {
+				font-size: 1.5rem;
+				color: var(--dark);
+			}
+
+			.progress-stats {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 25px;
+				margin-bottom: 30px;
+			}
+
+			.progress-item {
+				text-align: center;
+				padding: 20px;
+				background: var(--light);
+				border-radius: var(--border-radius);
+			}
+
+			.progress-value {
+				font-size: 2rem;
+				font-weight: 700;
+				color: var(--primary);
+				margin-bottom: 5px;
+			}
+
+			.progress-label {
+				color: var(--gray);
+				font-size: 0.9rem;
+			}
+
+			.progress-bar {
+				height: 10px;
+				background: var(--light-gray);
+				border-radius: 5px;
+				margin: 15px 0;
+				overflow: hidden;
+			}
+
+			.progress-fill {
+				height: 100%;
+				background: linear-gradient(90deg, var(--primary), var(--accent));
+				border-radius: 5px;
+				width: 75%;
+				transition: width 1.5s ease;
+			}
+
+			/* Study Tools */
+			.tools-section {
+				margin: 50px 0;
+			}
+
+			.tools-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 20px;
+				margin-top: 30px;
+			}
+
+			.tool-card {
+				background: white;
+				border-radius: var(--border-radius);
+				padding: 25px;
+				text-align: center;
+				box-shadow: var(--shadow);
+				transition: var(--transition);
+			}
+
+			.tool-card:hover {
+				transform: translateY(-5px);
+			}
+
+			.tool-icon {
+				width: 60px;
+				height: 60px;
+				margin: 0 auto 15px;
+				background: var(--light);
+				border-radius: 15px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1.8rem;
+				color: var(--primary);
+			}
+
+			/* Footer */
+			footer {
+				background: var(--dark);
+				color: white;
+				padding: 50px 0 20px;
+				margin-top: 60px;
+			}
+
+			.footer-content {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 40px;
+				margin-bottom: 40px;
+			}
+
+			.footer-section h3 {
+				font-size: 1.2rem;
+				margin-bottom: 20px;
+				color: white;
+			}
+
+			.footer-links {
+				list-style: none;
+			}
+
+			.footer-links li {
+				margin-bottom: 10px;
+			}
+
+			.footer-links a {
+				color: #adb5bd;
+				text-decoration: none;
+				transition: var(--transition);
+			}
+
+			.footer-links a:hover {
+				color: white;
+				padding-left: 5px;
+			}
+
+			.copyright {
+				text-align: center;
+				padding-top: 20px;
+				border-top: 1px solid rgba(255, 255, 255, 0.1);
+				color: #adb5bd;
+				font-size: 0.9rem;
+			}
+
+			/* Responsive Design */
+			@media (max-width: 768px) {
+				.header-content {
+					flex-direction: column;
+					gap: 15px;
+				}
+
+				.nav-links {
+					gap: 15px;
+					flex-wrap: wrap;
+					justify-content: center;
+				}
+
+				.hero h1 {
+					font-size: 2.2rem;
+				}
+
+				.stats {
+					flex-direction: column;
+					gap: 20px;
+				}
+
+				.resources-grid {
+					grid-template-columns: 1fr;
+				}
+
+				.progress-stats {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.container {
+					padding: 0 15px;
+				}
+
+				.hero {
+					padding: 40px 0 20px;
+				}
+
+				.resource-card {
+					padding: 20px;
+				}
+
+				.section-title {
+					font-size: 1.8rem;
+				}
+			}
+
+			/* Custom Animations */
+			@keyframes float {
+				0%,
+				100% {
+					transform: translateY(0);
+				}
+				50% {
+					transform: translateY(-10px);
+				}
+			}
+
+			.floating {
+				animation: float 3s ease-in-out infinite;
+			}
+
+			/* Utility Classes */
+			.text-center {
+				text-align: center;
+			}
+			.mt-20 {
+				margin-top: 20px;
+			}
+			.mt-30 {
+				margin-top: 30px;
+			}
+			.mb-20 {
+				margin-bottom: 20px;
+			}
+			.mb-30 {
+				margin-bottom: 30px;
+			}
+			.flex {
+				display: flex;
+			}
+			.flex-col {
+				flex-direction: column;
+			}
+			.items-center {
+				align-items: center;
+			}
+			.justify-center {
+				justify-content: center;
+			}
+			.gap-10 {
+				gap: 10px;
+			}
+			.gap-20 {
+				gap: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<div class="header-content">
+					<a href="#" class="logo">
+						<i class="fas fa-graduation-cap"></i>
+						<div class="logo-text">Study<span>Hub</span></div>
+					</a>
+
+					<ul class="nav-links">
+						<li><a href="#resources">Resources</a></li>
+						<li><a href="#progress">Progress</a></li>
+						<li><a href="#tools">Tools</a></li>
+						<li><a href="#about">About</a></li>
+					</ul>
+
+					<div class="user-profile">
+						<div class="profile-img">SL</div>
+						<div class="user-info">
+							<div class="user-name">Skander L.</div>
+							<div class="user-status">Student</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Hero Section -->
+		<section class="hero">
+			<div class="container">
+				<h1>Master Your Studies with Smart Resources</h1>
+				<p class="hero-subtitle">
+					Your personalized academic hub featuring the top 3 educational
+					platforms for comprehensive exam preparation and skill development.
+				</p>
+
+				<div class="stats">
+					<div class="stat-item">
+						<div class="stat-number">3</div>
+						<div class="stat-label">Premium Platforms</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-number">5000+</div>
+						<div class="stat-label">Learning Resources</div>
+					</div>
+					<div class="stat-item">
+						<div class="stat-number">98%</div>
+						<div class="stat-label">Success Rate</div>
+					</div>
+				</div>
+
+				<a href="#resources" class="resource-link">
+					<i class="fas fa-rocket"></i> Start Learning Now
+				</a>
+			</div>
+		</section>
+
+		<!-- Study Resources Section -->
+		<section id="resources" class="resources">
+			<div class="container">
+				<h2 class="section-title">Top Learning Platforms</h2>
+				<p
+					class="text-center mb-30"
+					style="color: var(--gray); max-width: 700px; margin: 0 auto"
+				>
+					Carefully selected platforms that provide comprehensive learning
+					materials for all subjects and skill levels.
+				</p>
+
+				<div class="resources-grid">
+					<!-- Khan Academy -->
+					<div class="resource-card">
+						<div class="resource-header">
+							<div class="resource-icon icon-khan">
+								<i class="fas fa-chalkboard-teacher"></i>
+							</div>
+							<h3 class="resource-title">Khan Academy</h3>
+						</div>
+						<p class="resource-description">
+							Free world-class education for anyone, anywhere. Perfect for
+							mastering fundamentals in math, science, and humanities.
+						</p>
+						<ul class="resource-features">
+							<li>
+								<i class="fas fa-check-circle"></i> Interactive exercises with
+								instant feedback
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Personalized learning
+								dashboard
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Teacher tools for tracking
+								progress
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Available in 40+ languages
+							</li>
+						</ul>
+						<a
+							href="https://www.khanacademy.org"
+							target="_blank"
+							class="resource-link"
+						>
+							<i class="fas fa-external-link-alt"></i> Visit Platform
+						</a>
+					</div>
+
+					<!-- Coursera -->
+					<div class="resource-card">
+						<div class="resource-header">
+							<div class="resource-icon icon-coursera">
+								<i class="fas fa-university"></i>
+							</div>
+							<h3 class="resource-title">Coursera</h3>
+						</div>
+						<p class="resource-description">
+							Professional certificates and degrees from top universities. Ideal
+							for advanced topics and career development.
+						</p>
+						<ul class="resource-features">
+							<li>
+								<i class="fas fa-check-circle"></i> Courses from 200+
+								universities
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Professional certificates
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Guided projects with
+								hands-on learning
+							</li>
+							<li>
+								<i class="fas fa-check-circle"></i> Peer-reviewed assignments
+							</li>
+						</ul>
+						<a
+							href="https://www.coursera.org"
+							target="_blank"
+							class="resource-link"
+						>
+							<i class="fas fa-external-link-alt"></i> Explore Courses
+						</a>
+					</div>
+
+					<!-- edX -->
+					<div class="resource-card">
+						<div class="resource-header">
+							<div class="resource-icon icon-edx">
+								<i class="fas fa-laptop-code"></i>
+							</div>
+							<h3 class="resource-title">edX</h3>
+						</div>
+						<p class="resource-description">
+							University courses for credit, professional certification, and
+							lifelong learning. Great for STEM subjects.
+						</p>
+						<ul class="resource-features">
+							<li><i class="fas fa-check-circle"></i> MicroMasters programs</li>
+							<li><i class="fas fa-check-circle"></i> Verified certificates</li>
+							<li><i class="fas fa-check-circle"></i> Self-paced learning</li>
+							<li>
+								<i class="fas fa-check-circle"></i> University credit eligible
+							</li>
+						</ul>
+						<a href="https://www.edx.org" target="_blank" class="resource-link">
+							<i class="fas fa-external-link-alt"></i> Start Learning
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Progress Section -->
+		<section id="progress" class="progress-section">
+			<div class="container">
+				<div class="progress-card">
+					<div class="progress-header">
+						<h3 class="progress-title">Your Learning Progress</h3>
+						<div class="progress-date">Updated: Today</div>
+					</div>
+
+					<div class="progress-stats">
+						<div class="progress-item">
+							<div class="progress-value">24</div>
+							<div class="progress-label">Hours Studied</div>
+						</div>
+						<div class="progress-item">
+							<div class="progress-value">87%</div>
+							<div class="progress-label">Completion Rate</div>
+						</div>
+						<div class="progress-item">
+							<div class="progress-value">15</div>
+							<div class="progress-label">Courses Taken</div>
+						</div>
+						<div class="progress-item">
+							<div class="progress-value">7</div>
+							<div class="progress-label">Certificates Earned</div>
+						</div>
+					</div>
+
+					<div class="progress-bar">
+						<div class="progress-fill"></div>
+					</div>
+					<div class="flex justify-center items-center gap-10 mt-20">
+						<div class="progress-label">Weekly Goal: 20 hours</div>
+						<div class="progress-label">Current: 15 hours</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Study Tools -->
+		<section id="tools" class="tools-section">
+			<div class="container">
+				<h2 class="section-title">Study Enhancement Tools</h2>
+
+				<div class="tools-grid">
+					<div class="tool-card">
+						<div class="tool-icon">
+							<i class="fas fa-calendar-alt"></i>
+						</div>
+						<h3>Study Planner</h3>
+						<p>Create personalized study schedules with automatic reminders</p>
+					</div>
+
+					<div class="tool-card">
+						<div class="tool-icon">
+							<i class="fas fa-sticky-note"></i>
+						</div>
+						<h3>Notes Organizer</h3>
+						<p>Digital notebook with tagging and search capabilities</p>
+					</div>
+
+					<div class="tool-card">
+						<div class="tool-icon">
+							<i class="fas fa-chart-line"></i>
+						</div>
+						<h3>Progress Tracker</h3>
+						<p>Visual analytics for your learning journey</p>
+					</div>
+
+					<div class="tool-card">
+						<div class="tool-icon">
+							<i class="fas fa-users"></i>
+						</div>
+						<h3>Study Groups</h3>
+						<p>Connect with peers for collaborative learning</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="footer-content">
+					<div class="footer-section">
+						<h3>StudyHub</h3>
+						<p style="color: #adb5bd; line-height: 1.6">
+							A personalized academic resource center designed to help students
+							excel in their studies through curated platforms and smart tools.
+						</p>
+					</div>
+
+					<div class="footer-section">
+						<h3>Quick Links</h3>
+						<ul class="footer-links">
+							<li><a href="#resources">Learning Platforms</a></li>
+							<li><a href="#progress">Progress Tracking</a></li>
+							<li><a href="#tools">Study Tools</a></li>
+							<li><a href="#about">About Project</a></li>
+						</ul>
+					</div>
+
+					<div class="footer-section">
+						<h3>Contact</h3>
+						<ul class="footer-links">
+							<li><i class="fas fa-envelope"></i> arbiiskandar781@gmail.com</li>
+							<li><i class="fas fa-map-marker-alt"></i> Tunis, Tunisia</li>
+							<li><i class="fas fa-graduation-cap"></i> CS Student</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="copyright">
+					<p>
+						&copy; 2025 StudyHub. Created with ❤️ by Skander Larbi as part of
+						academic portfolio.
+					</p>
+					<p class="mt-20">
+						This project demonstrates frontend development skills using HTML,
+						CSS, and JavaScript.
+					</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Animate progress bar on scroll
+			const progressBar = document.querySelector(".progress-fill");
+			let animated = false;
+
+			function animateProgressBar() {
+				const progressSection = document.querySelector(".progress-section");
+				const sectionPosition = progressSection.getBoundingClientRect().top;
+				const screenPosition = window.innerHeight / 1.3;
+
+				if (sectionPosition < screenPosition && !animated) {
+					progressBar.style.width = "75%";
+					animated = true;
+				}
+			}
+
+			window.addEventListener("scroll", animateProgressBar);
+
+			// Initialize on load
+			window.addEventListener("load", animateProgressBar);
+
+			// Smooth scrolling for navigation links
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener("click", function (e) {
+					e.preventDefault();
+					const targetId = this.getAttribute("href");
+					if (targetId === "#") return;
+
+					const targetElement = document.querySelector(targetId);
+					if (targetElement) {
+						window.scrollTo({
+							top: targetElement.offsetTop - 80,
+							behavior: "smooth",
+						});
+					}
+				});
+			});
+
+			// Add floating animation to some elements
+			document.querySelectorAll(".resource-card").forEach((card, index) => {
+				card.style.animationDelay = `${index * 0.2}s`;
+			});
+
+			// Simple form submission simulation
+			const resourceLinks = document.querySelectorAll(".resource-link");
+			resourceLinks.forEach((link) => {
+				link.addEventListener("click", function (e) {
+					if (this.getAttribute("href").startsWith("http")) {
+						// Track external link clicks (simulated)
+						console.log(`User clicked: ${this.textContent.trim()}`);
+					}
+				});
+			});
+
+			// Update study time randomly (for demo purposes)
+			function updateStudyTime() {
+				const studyHours = document.querySelector(".progress-value");
+				let currentHours = parseInt(studyHours.textContent);
+
+				// Simulate small increment
+				if (Math.random() > 0.7) {
+					currentHours += 1;
+					studyHours.textContent = currentHours;
+
+					// Add subtle animation
+					studyHours.style.transform = "scale(1.2)";
+					setTimeout(() => {
+						studyHours.style.transform = "scale(1)";
+					}, 300);
+				}
+			}
+
+			// Update study time every minute
+			setInterval(updateStudyTime, 60000);
+		</script>
+	</body>
+</html>
